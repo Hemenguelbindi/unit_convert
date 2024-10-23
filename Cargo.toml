@@ -6,4 +6,6 @@ edition = "2021"
 [dependencies]
 yew = { version = "0.21.0", features = ["csr"] }
 wasm-bindgen = "0.2"
-web-sys = { version = "0.3.72", features = ["HtmlInputElement", "Window"] }
+web-sys = { version = "0.3.72", features = ["HtmlInputElement", "HtmlSelectElement", "Window"] }
+gloo = "0.11.0"
+yewdux = "0.10.0"

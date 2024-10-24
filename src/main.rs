@@ -1,4 +1,6 @@
 mod converter;
+
+mod tabs;
 use yew;
 use converter::Converter;
 

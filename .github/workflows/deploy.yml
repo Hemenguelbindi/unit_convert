@@ -1,4 +1,5 @@
-name: Continuous deployment
+name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
@@ -17,11 +18,17 @@ jobs:
           toolchain: stable
           target: wasm32-unknown-unknown
 
-      # Build the project using trunk
-      - run: trunk build --release --public-url /${{ github.event.repository.name }}/
+      # Install Trunk for building Yew projects
+      - name: Install Trunk
+        run: cargo install trunk
+
+      # Build the project using trunk with the correct public URL
+      - name: Build project
+        run: trunk build --release --public-url /${{ github.repository_owner }}/
 
       # Deploy the build to gh-pages branch
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist

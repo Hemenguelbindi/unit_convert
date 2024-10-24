@@ -56,8 +56,6 @@ impl Component for TemperatureComponent{
             TempMsg::Convert => {
                 self.calculate = true;
                 self.convert = converter_temperature(self.temperature.parse::<f64>().unwrap(), &self.unit_from, &self.unit_to);
-                log!(self.convert.to_string());
-                log!("Converting: ", &self.temperature.to_string(), &self.unit_from.to_string(), &self.unit_to.to_string());
                 true
             }
             TempMsg::Reset => {
@@ -169,14 +167,27 @@ impl Component for TemperatureComponent{
 
 fn converter_temperature(temperature: f64, unit_from: &str, unit_to: &str) -> String {
     match (unit_from, unit_to) {
-        ("Celsius", "Fahrenheit") => ((temperature * 9.0/5.0) + 32.0).to_string(),
-        ("Fahrenheit", "Celsius") => ((temperature - 32.0) * 5.0/9.0).to_string(),
-        ("Fahrenheit", "Kelvin") => (temperature - 273.15).to_string(),
-        ("Celsius", "Kelvin") => (temperature + 273.0).to_string(),
-        ("Kelvin", "Fahrenheit") => ((temperature - 273.15) * 9.0/5.0 + 32.0).to_string(),
+        ("Celsius", "Fahrenheit") => ((temperature * 9.0 / 5.0) + 32.0).to_string(),
+        
+
+        ("Fahrenheit", "Celsius") => ((temperature - 32.0) * 5.0 / 9.0).to_string(),
+        
+
+        ("Fahrenheit", "Kelvin") => ((temperature + 459.67) * 5.0 / 9.0).to_string(),
+
+        ("Celsius", "Kelvin") => (temperature + 273.15).to_string(),
+        
+
+        ("Kelvin", "Fahrenheit") => ((temperature - 273.15) * 9.0 / 5.0 + 32.0).to_string(),
+        
+
         ("Kelvin", "Celsius") => (temperature - 273.15).to_string(),
-        ("Celcius", "Celcius") => temperature.to_string(),
-        ("Farenheit", "Fahrenheit") => temperature.to_string(),
-        _  => 0.0.to_string(),
+
+        ("Celsius", "Celsius") => temperature.to_string(),
+        ("Fahrenheit", "Fahrenheit") => temperature.to_string(),
+        ("Kelvin", "Kelvin") => temperature.to_string(),
+        
+
+        _ => "Unsupported unit conversion".to_string(),
     }
 }

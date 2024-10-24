@@ -1,32 +1,28 @@
-name: Build and Deploy Yew App
-
+name: Continuous deployment
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    branches: [main]
+    workflows: [Continuous integration]
+    types: [completed]
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
 
-    - name: Set up Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        profile: minimal
-        override: true
+      - uses: jetli/trunk-action@v0.1.0
+      - uses: jetli/wasm-bindgen-action@v0.1.0
 
-    - name: Install Trunk
-      run: cargo install trunk wasm-bindgen-cli
+      - uses: actions/checkout@v2
 
-    - name: Build Yew application
-      run: trunk build --release
+      - run: trunk build --release
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        publish_dir: ./dist
+      - uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: $
+          publish_dir: ./dist

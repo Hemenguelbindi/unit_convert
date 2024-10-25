@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="unit_convert/logo-99c5a151f80ab215.svg" integrity="sha384&#x2D;Ml&#x2F;kbE&#x2F;a5S368sYFw&#x2F;B2zMF2hJl&#x2F;4TVPXDfnwsRepG6Fxr0navzsch3879rXfxIh"/>
+    <link rel="stylesheet" href="./index.css" />
+    <title>Unit Converter</title>
+    <base href="unit_convert/" />
+  
+<link rel="modulepreload" href="unit_convert/unit_convert-f8e80b57a3dca266.js" crossorigin=anonymous integrity="sha384-GCk6uRehOyRc/fYkjoP3u0QHddLiYzTyZ7Jgi7tB7/ggtDGtCVZ8unFEYNB5NRx2">
+<link rel="preload" href="unit_convert/unit_convert-f8e80b57a3dca266_bg.wasm" crossorigin=anonymous integrity="sha384-3uBu3EvTaVBwoNOa429NdBtxjg0a9ThYr9MbRO2cKyVrIEWk2Jmy94/dzraJWTcb" as="fetch" type="application/wasm"></head>
+  <body>
+<script type="module" nonce="vKnSqYwiY6SKMD7kOn7EJg==">
+import init, * as bindings from 'unit_convert/unit_convert-f8e80b57a3dca266.js';
+const wasm = await init('unit_convert/unit_convert-f8e80b57a3dca266_bg.wasm');
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
